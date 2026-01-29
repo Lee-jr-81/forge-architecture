@@ -1,0 +1,22 @@
+---
+const navItems = [
+  { name: 'Work', href: '/work' },
+  { name: 'Studio', href: '/about' },
+  { name: 'Contact', href: '/contact' },
+];
+---
+<nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-100">
+  <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+    <a href="/" class="font-black text-2xl tracking-tighter uppercase italic">
+      Forge<span class="text-orange-600">.</span>
+    </a>
+    
+    <div class="flex gap-8">
+      {navItems.map(item => (
+        <a href={item.href} class="text-xs uppercase tracking-widest font-bold hover:text-orange-600 transition-colors">
+          {item.name}
+        </a>
+      ))}
+    </div>
+  </div>
+</nav>

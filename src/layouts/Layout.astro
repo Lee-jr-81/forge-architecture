@@ -1,8 +1,12 @@
 ---
-// This connects the "Tailwind Main Line" to this layout
+// 1. Import the Tailwind "Main Line"
 import "../styles/global.css";
 
-// These are the "Props" - info passed from individual pages to this layout
+// 2. Import the "Perimeter" components
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+
+// 3. Define the Props (The info this layout expects from pages)
 const { title = "Forge Architecture", description = "Modern Architectural Design" } = Astro.props;
 ---
 
@@ -16,7 +20,18 @@ const { title = "Forge Architecture", description = "Modern Architectural Design
     <title>{title}</title>
     <meta name="description" content={description} />
   </head>
-  <body class="bg-white text-slate-900 antialiased">
-    <slot />
+  
+  
+  <body class="bg-white font-brand text-slate-900 antialiased flex flex-col min-h-screen">
+    
+    <Navbar />
+    
+    {/* The 'flex-grow' pushes the footer down. 'pt-20' makes room for the fixed navbar */}
+    <main class="grow pt-20">
+      <slot />
+    </main>
+
+    <Footer />
+    
   </body>
 </html>

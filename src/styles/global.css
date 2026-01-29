@@ -1,1 +1,12 @@
+/* 1. Import Montserrat from Google */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 @import "tailwindcss";
+
+@theme {
+  /* 2. Map Montserrat to your brand variable */
+  --font-brand: "Montserrat", sans-serif;
+
+  /* Keep your colors as they were */
+  --color-brand-primary: #0f172a;
+  --color-brand-accent: #ea580c;
+}
