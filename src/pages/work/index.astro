@@ -1,8 +1,43 @@
 ---
-import Layout from "../../layouts/Layout.astro"
+import { getCollection } from 'astro:content';
+import Layout from "../../layouts/Layout.astro";
+import { Image } from 'astro:assets';
+
+// Pull all projects from our "Markdown database"
+const projects = await getCollection('projects');
 ---
-<Layout title="Page Name | Forge">
-  <section class="py-24 px-6">
-    <h1 class="text-4xl font-black uppercase italic">Page Name</h1>
+
+<Layout title="Work | Forge">
+  <section class="py-24 px-6 max-w-7xl mx-auto">
+    <div class="mb-16 border-b border-slate-100 pb-12">
+      <h1 class="text-6xl font-black uppercase italic tracking-tighter">Selected Works</h1>
+      <p class="text-slate-500 uppercase tracking-widest text-xs mt-4">2024 — 2026 Portfolio</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+      {projects.map((project) => (
+        <a href={`/work/${project.slug}`} class="group block">
+          <div class="aspect-16/10 overflow-hidden bg-slate-100">
+            <Image 
+              src={project.data.image} 
+              alt={project.data.title}
+              class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+            />
+          </div>
+          
+          <div class="mt-6 flex justify-between items-end">
+            <div>
+              <h2 class="text-2xl font-black uppercase italic tracking-tighter leading-none">
+                {project.data.title}
+              </h2>
+              <p class="text-xs text-slate-500 uppercase tracking-widest mt-2">
+                {project.data.category}
+              </p>
+            </div>
+            <p class="font-mono text-sm text-slate-400">{project.data.year}</p>
+          </div>
+        </a>
+      ))}
+    </div>
   </section>
 </Layout>

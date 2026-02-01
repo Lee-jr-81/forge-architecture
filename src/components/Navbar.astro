@@ -6,17 +6,50 @@ const navItems = [
 ];
 ---
 <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-100">
-  <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-    <a href="/" class="font-black text-2xl tracking-tighter uppercase italic">
+  <div class="md:max-w-[75%] mx-auto px-6 h-20 flex justify-between items-center">
+    <a href="/" class="font-black text-2xl tracking-tighter uppercase italic z-60">
       Forge<span class="text-orange-600">.</span>
     </a>
     
-    <div class="flex gap-8">
+    <div class="hidden md:flex gap-8">
       {navItems.map(item => (
         <a href={item.href} class="text-xs uppercase tracking-widest font-bold hover:text-orange-600 transition-colors">
           {item.name}
         </a>
       ))}
     </div>
+
+    <button id="menu-toggle" class="md:hidden flex flex-col gap-1.5 z-60 p-2" aria-label="Menu">
+      <span class="w-6 h-0.5 bg-black transition-all duration-300 origin-center"></span>
+      <span class="w-6 h-0.5 bg-black transition-all duration-300 origin-center"></span>
+    </button>
   </div>
 </nav>
+
+<div id="mobile-menu" class="fixed inset-0 bg-white z-40 translate-x-full transition-transform duration-500 ease-in-out flex flex-col items-center justify-center gap-8 md:hidden">
+  {navItems.map(item => (
+    <a href={item.href} class="text-3xl font-black uppercase italic tracking-widest">{item.name}</a>
+  ))}
+</div>
+
+<script>
+  const btn = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const lines = btn?.querySelectorAll('span');
+
+  btn?.addEventListener('click', () => {
+    // 1. Slide the menu in/out
+    menu?.classList.toggle('translate-x-full');
+
+    // 2. Animate the hamburger to an "X"
+    if (lines) {
+      lines[0].classList.toggle('rotate-45');
+      lines[0].classList.toggle('translate-y-[4px]');
+      lines[1].classList.toggle('-rotate-45');
+      lines[1].classList.toggle('-translate-y-[4px]');
+    }
+
+    // 3. Prevent body scroll when menu is open
+    document.body.classList.toggle('overflow-hidden');
+  });
+</script>

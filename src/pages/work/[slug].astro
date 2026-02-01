@@ -1,8 +1,68 @@
 ---
-import Layout from "../../layouts/Layout.astro"
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+
+// 1. Tell Astro which paths to create
+export async function getStaticPaths() {
+  const projectEntries = await getCollection('projects');
+  return projectEntries.map(entry => ({
+    params: { slug: entry.slug }, 
+    props: { entry },
+  }));
+}
+
+// 2. Grab the project data from the props
+const { entry } = Astro.props;
+const { Content } = await entry.render(); // This handles the Markdown text body
 ---
-<Layout title="Page Name | Forge">
-  <section class="py-24 px-6">
-    <h1 class="text-4xl font-black uppercase italic">Page Name</h1>
-  </section>
+
+<Layout title={`${entry.data.title} | Forge`}>
+  <article class="py-24 px-6 max-w-7xl mx-auto">
+    
+    <header class="mb-16">
+      <div class="flex justify-between items-end border-b border-slate-900 pb-8">
+        <h1 class="text-6xl md:text-8xl font-black uppercase italic tracking-tighter leading-none">
+          {entry.data.title}
+        </h1>
+        <div class="text-right hidden md:block">
+          <p class="text-sm font-bold uppercase tracking-widest">{entry.data.category}</p>
+          <p class="text-slate-500 font-mono text-sm">{entry.data.year}</p>
+        </div>
+      </div>
+    </header>
+
+    <div class="aspect-video md:aspect-21/9 overflow-hidden bg-slate-100 mb-20">
+      <Image 
+        src={entry.data.image} 
+        alt={entry.data.title}
+        class="w-full h-full object-cover"
+      />
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+      <aside class="md:col-span-4 space-y-8">
+        <div>
+          <h3 class="text-xs font-bold uppercase tracking-[0.3em] text-slate-400 mb-2">Client</h3>
+          <p class="text-xl font-medium uppercase tracking-tight">{entry.data.client}</p>
+        </div>
+        <div>
+          <h3 class="text-xs font-bold uppercase tracking-[0.3em] text-slate-400 mb-2">Philosophy</h3>
+          <p class="text-slate-600 leading-relaxed italic">{entry.data.description}</p>
+        </div>
+      </aside>
+
+      <div class="md:col-span-8 prose prose-slate prose-invert max-w-none">
+        <div class="text-lg leading-relaxed text-slate-800 space-y-6">
+          <Content />
+        </div>
+      </div>
+    </div>
+
+    <footer class="mt-32 pt-12 border-t border-slate-100">
+      <a href="/work" class="text-xs font-bold uppercase tracking-widest hover:text-orange-600 transition-colors">
+        ← Back to Archive
+      </a>
+    </footer>
+  </article>
 </Layout>

@@ -1,18 +1,20 @@
 ---
 import Layout from '../layouts/Layout.astro';
-// We'll import our components here in a moment
+import Hero from '../components/Hero.astro';
+import Thesis from '../components/Thesis.astro';
+import ProjectGrid from '../components/ProjectGrid.astro';
+import Process from '../components/Process.astro';
+import ContactCTA from '../components/ContactCTA.astro';
+
+
 ---
 
-<Layout title="Forge Architecture | Modern Brutalist Design">
+<Layout title="Forge Architecture | Modern Geometric Design">
   <main>
-    <section class="py-24 px-6 text-center">
-      <h1 class="text-6xl font-black uppercase italic tracking-tighter">
-        Forge Architecture
-      </h1>
-      <p class="mt-4 text-slate-500 uppercase tracking-widest text-sm">
-        London / Berlin / Tokyo
-      </p>
-    </section>
-
-    </main>
+    <Hero />
+    <Thesis />
+    <ProjectGrid />
+    <Process />
+    <ContactCTA />
+  </main>
 </Layout>

@@ -1,0 +1,64 @@
+---
+import { Image } from "astro:assets";
+import heroImage from '../assets/hero-building.jpg';
+
+---
+<section class="relative min-h-[90vh] flex items-center bg-white overflow-hidden">
+  <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+    
+    <div class="z-10">
+      <span class="text-xs uppercase tracking-[0.4em] text-brand-accent font-bold mb-4 block">
+        Established 2026
+      </span>
+      <h1 class="text-7xl md:text-8xl lg:text-9xl font-black uppercase italic tracking-tighter leading-[0.85] text-brand-primary">
+        Forge Your<br /> 
+        <span class="text-slate-300">Space</span>
+      </h1>
+      <p class="mt-8 text-lg text-slate-500 max-w-md leading-relaxed font-medium">
+        An architectural practice dedicated to the precision of form and the permanence of material. Based in Birmingham, building for the future.
+      </p>
+      <div class="mt-10 flex gap-6">
+        <a href="/work" class="bg-brand-primary text-white px-10 py-4 uppercase text-xs font-bold tracking-widest hover:bg-brand-accent transition-all duration-300">
+          View Projects
+        </a>
+      </div>
+    </div>
+
+    <div class="relative h-125 md:h-175 w-full">
+  <div class="hero-shape w-full h-full bg-slate-200 overflow-hidden shadow-2xl">
+    <Image 
+      src={heroImage} 
+      alt="Modern skyscraper geometry" 
+      width={1200}
+      height={1600}
+      format="webp"
+      quality="high"
+      loading="eager"
+      fetchpriority="high"
+      class="w-full h-full object-cover grayscale hover:grayscale-0 hover:scale-105 transition-all duration-1000"
+      
+    />
+  </div>
+  <div class="absolute -bottom-4 -left-4 w-24 h-24 border-b-4 border-l-4 border-brand-accent -z-10"></div>
+</div>
+  </div>
+
+  <div class="absolute top-1/2 left-0 -translate-y-1/2 text-[25vw] font-black text-slate-50 select-none -z-20 leading-none">
+    FORGE
+  </div>
+
+  
+  <style>
+  /* Mobile First: No clip-path (standard square) */
+  .hero-shape {
+    clip-path: none;
+  }
+
+  /* Desktop: Apply the architectural slant */
+  @media (min-width: 768px) {
+    .hero-shape {
+      clip-path: polygon(10% 0%, 100% 0%, 90% 100%, 0% 100%);
+    }
+  }
+</style>
+</section>
